@@ -1,0 +1,199 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<title>Thông điệp dành cho bạn</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<style>
+body{
+  margin:0;
+  height:100vh;
+  display:flex;
+  justify-content:center;
+  align-items:center;
+  background:linear-gradient(135deg,#1f1f1f,#121212);
+  font-family: 'Segoe UI', sans-serif;
+  color:#fff;
+}
+.container{
+  background:rgba(255,255,255,.06);
+  padding:40px;
+  border-radius:20px;
+  text-align:center;
+  max-width:420px;
+  width:90%;
+}
+input{
+  width:100%;
+  padding:12px;
+  border-radius:10px;
+  border:none;
+  font-size:16px;
+  margin-top:15px;
+}
+button{
+  margin-top:20px;
+  padding:12px 20px;
+  border:none;
+  border-radius:12px;
+  background:#c7a17a;
+  color:#000;
+  font-size:16px;
+  cursor:pointer;
+}
+.topic{
+  color:#c7a17a;
+  margin-bottom:10px;
+  font-size:14px;
+}
+p{
+  line-height:1.7;
+  font-size:16px;
+}
+</style>
+</head>
+
+<body>
+
+  <div id="home" class="container">
+
+  <div style="font-size:14px; letter-spacing:2px; color:#c7a17a; margin-bottom:10px;">
+    12AM CAFÉ
+  </div>
+  <h2>Hãy nhập con số của bạn
+</h2>
+  <p>Một con số – một thông điệp dành riêng cho khoảnh khắc này.</p>
+  <input id="num" type="number" placeholder="Nhập số từ 1 đến 100">
+  <button onclick="show()">Xem thông điệp</button>
+</div>
+
+<script>
+const topics = [
+  "🌱 Bản thân",
+  "🤍 Mối quan hệ",
+  "🌙 Bình yên & chữa lành",
+  "🔄 Thay đổi & khởi đầu"
+];
+
+const predictions = [
+"Bạn đang ở giai đoạn học cách lắng nghe chính mình nhiều hơn thay vì chạy theo mong đợi của người khác.",
+"Không phải ai rời đi cũng là mất mát, đôi khi đó là cách cuộc sống giữ lại điều phù hợp hơn cho bạn.",
+"Sự bình yên bạn tìm kiếm không nằm ở việc mọi thứ hoàn hảo, mà ở việc bạn chấp nhận chúng như vốn có.",
+"Một thay đổi nhỏ trong suy nghĩ sắp tới sẽ dẫn bạn sang một hướng hoàn toàn khác.",
+"Bạn sẽ dần hiểu rằng giá trị của mình không cần phải được chứng minh liên tục.",
+"Có những mối quan hệ tồn tại để dạy bạn một bài học, không phải để đi cùng bạn cả đời.",
+"Khi bạn cho phép mình nghỉ ngơi, thế giới không sụp đổ – nó chỉ trở nên nhẹ hơn.",
+"Một quyết định tưởng chừng ngẫu nhiên sắp mở ra cho bạn một chương mới.",
+"Bạn đang mạnh mẽ hơn chính bạn của vài tháng trước rất nhiều.",
+"Không phải mọi sự im lặng đều là xa cách, đôi khi đó là sự tôn trọng.",
+"Bạn sẽ tìm thấy cảm giác an yên khi ngừng so sánh hành trình của mình với người khác.",
+"Thời điểm bạn dám buông một điều cũ, điều mới mới có chỗ để bước vào.",
+"Bạn không chậm, bạn chỉ đang đi đúng nhịp của riêng mình.",
+"Một người từng rất quan trọng sẽ xuất hiện trong ký ức bạn theo cách dịu dàng hơn.",
+"Bình yên không phải là không có sóng gió, mà là bạn không còn sợ chúng nữa.",
+"Một khởi đầu mới sẽ đến không ồn ào, nhưng rất chắc chắn.",
+"Bạn đang học cách tin vào trực giác của mình nhiều hơn.",
+"Có những mối quan hệ sẽ thay đổi hình dạng, nhưng không mất đi ý nghĩa.",
+"Khi bạn thôi tự trách, trái tim bạn sẽ nhẹ đi rất nhiều.",
+"Một cánh cửa mới mở ra ngay sau khi bạn thôi đứng trước cửa cũ.",
+"Bạn xứng đáng được tôn trọng, kể cả khi bạn không hoàn hảo.",
+"Không phải ai hiểu bạn cũng cần ở lại, và không phải ai ở lại cũng hiểu bạn.",
+"Sự chữa lành không đến trong một ngày, mà nó đến khi bạn cho mình thời gian.",
+"Một cơ hội mới sẽ xuất hiện khi bạn sẵn sàng nói “có” với chính mình.",
+"Bạn không yếu đuối vì cảm xúc, bạn chỉ đang là con người.",
+"Một mối quan hệ sẽ trở nên rõ ràng hơn trong thời gian tới.",
+"Bình yên đến từ việc ngừng cố gắng kiểm soát mọi thứ.",
+"Sự thay đổi bạn sợ nhất lại chính là điều bạn cần.",
+"Bạn đang trở thành phiên bản trung thực hơn với chính mình.",
+"Có người sẽ rời đi để bạn có không gian cho người khác bước vào.",
+"Sự an yên không phải trốn tránh, mà là đối diện nhẹ nhàng.",
+"Một quyết định nhỏ hôm nay sẽ ảnh hưởng lâu dài về sau.",
+"Bạn không cần phải giống ai để được yêu thương.",
+"Một mối quan hệ sẽ dạy bạn cách đặt ranh giới.",
+"Khi bạn cho phép mình chậm lại, bạn sẽ nhìn rõ hơn.",
+"Một hướng đi mới sẽ hiện ra khi bạn thôi cố chấp với hướng cũ.",
+"Bạn đang học cách tự công nhận bản thân.",
+"Có những kết nối không cần nói nhiều vẫn hiểu.",
+"Sự chữa lành bắt đầu khi bạn thôi phủ nhận cảm xúc.",
+"Một thay đổi âm thầm đang diễn ra bên trong bạn.",
+"Bạn đủ tốt ngay cả khi chưa đạt được điều mình muốn.",
+"Không phải mọi mối quan hệ đều cần lời giải thích.",
+"Bình yên đôi khi chỉ là một buổi chiều không nghĩ ngợi.",
+"Một khởi đầu mới sẽ đến sau khi bạn buông sự do dự.",
+"Bạn đang học cách yêu bản thân theo cách thực tế hơn.",
+"Một người sẽ nhìn bạn bằng ánh mắt khác trước.",
+"Sự an yên đến khi bạn thôi chống lại chính mình.",
+"Một quyết định đúng sẽ không luôn dễ chịu ngay lúc đầu.",
+"Bạn không cần phải vội vàng để chứng minh điều gì.",
+"Một mối quan hệ sẽ thay đổi vai trò trong cuộc sống bạn.",
+"Bình yên đến từ việc chấp nhận sự không chắc chắn.",
+"Một bước ngoặt sẽ đến khi bạn dám thành thật.",
+"Bạn đang mạnh mẽ hơn bạn nghĩ rất nhiều.",
+"Không phải ai cũng cần hiểu hết con người bạn.",
+"Sự chữa lành đôi khi chỉ là được là chính mình.",
+"Một thay đổi sẽ giúp bạn thở nhẹ hơn.",
+"Bạn không lạc hướng, bạn chỉ đang học cách đi con đường của riêng mình.",
+"Một mối quan hệ sẽ trở nên rõ ràng nhờ sự im lặng.",
+"Bình yên là khi bạn không cần giải thích quá nhiều.",
+"Một quyết định sẽ giúp bạn gần với bản thân hơn.",
+"Bạn không cần phải hoàn hảo để xứng đáng.",
+"Một người sẽ bước ra khỏi cuộc sống của bạn rất nhẹ nhàng.",
+"Sự an yên đến khi bạn tin vào dòng chảy.",
+"Một cánh cửa mới chỉ mở ra khi bạn sẵn sàng bước tiếp mà không quay đầu.",
+"Bạn đang học cách sống thật hơn với cảm xúc.",
+"Một mối quan hệ sẽ dạy bạn giá trị của khoảng cách.",
+"Bình yên là khi bạn ngừng ép mình phải ổn.",
+"Một khởi đầu mới đến khi bạn dám kết thúc.",
+"Bạn không yếu, bạn chỉ đang cho mình thời gian để chuyển mình.",
+"Một sự kết thúc êm đềm đôi khi lại là một món quà lớn.",
+"Sự chữa lành đến khi bạn không còn tự trách.",
+"Một thay đổi sẽ khiến bạn thấy nhẹ lòng.",
+"Bạn đang đi đúng hướng, dù chưa thấy đích.",
+"Một mối quan hệ sẽ đi vào trạng thái mới.",
+"Bình yên là khi bạn chấp nhận chính mình.",
+"Một quyết định sẽ mang lại sự rõ ràng.",
+"Bạn không cần phải giống ai để được công nhận.",
+"Một người sẽ rời đi đúng lúc.",
+"Sự an yên đến khi bạn thôi so sánh.",
+"Một khởi đầu mới đến rất khẽ.",
+"Bạn đang trở thành phiên bản bình thản hơn.",
+"Một mối quan hệ sẽ giúp bạn trưởng thành.",
+"Bình yên là khi bạn không còn sợ mất mát.",
+"Một thay đổi sẽ mở ra không gian mới.",
+"Bạn đang đủ đầy hơn bạn nghĩ.",
+"Một điều mới sẽ đến khi bạn sẵn sàng."
+];
+
+const homeHTML = document.body.innerHTML;
+
+function show(){
+  const n = document.getElementById("num").value;
+  if(n < 1 || n > 100){
+    alert("Vui lòng nhập số từ 1 đến 100");
+    return;
+  }
+
+  const topic = topics[(n - 1) % 4];
+  const text = predictions[n - 1];
+
+  document.body.innerHTML = `
+  <div class="container">
+
+    <div style="font-size:13px; letter-spacing:2px; color:#c7a17a; margin-bottom:6px;">
+      12AM CAFÉ
+    </div>
+
+    <div class="topic">${topic}</div>
+    <h2>Thông điệp số ${n}</h2>
+    <p>${text}</p>
+
+    <button onclick="document.body.innerHTML = homeHTML">
+      ← Quay lại
+    </button>
+  </div>
+`;
+}
+</script>
+
+</body>
+</html>
